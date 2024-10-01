@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApplicationVerstaTest.Models.Order>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Список заказов</h2>
+    <p><a asp-action="Create" class="btn btn-primary">Добавить заказ</a></p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Номер заказа</th>
+            <th>Город отправителя</th>
+            <th>Адрес отправителя</th>
+            <th>Город получателя</th>
+            <th>Адрес получателя</th>
+            <th>Вес груза</th>
+            <th>Дата забора груза</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-id="@item.OrderId" onclick="watchOrder(this)">
+                <td>@item.OrderId</td>
+                <td>@item.SenderCity</td>
+                <td>@item.SenderAddress</td>
+                <td>@item.ReceiverCity</td>
+                <td>@item.ReceiverAddress</td>
+                <td>@item.OrderWeight</td>
+                <td>@item.PickupDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function watchOrder(row) {
+        var orderId = row.getAttribute('data-id');
+        window.location.href = '/home/watch/' + orderId;
+    }
+</script>
+
+<style>
+    .d-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; 
+    }
+
+    .mb-3 {
+        margin-bottom: 1rem;
+    }
+</style>
